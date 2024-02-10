@@ -1,0 +1,90 @@
+
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     fhdFoam;
+
+startFrom       startTime;
+
+startTime       785;
+
+stopAt          endTime;
+
+endTime         5000;
+
+deltaT          0.5;
+
+writeControl    runTime;
+
+writeInterval   5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  3;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   3;
+
+runTimeModifiable true;
+
+adjustTimeStep	no;
+
+maxCo		0.1;
+
+
+functions
+{
+    #includeFunc solverInfo
+    //#includeFunc streamlines
+    //#includeFunc wallHeatFlux
+
+
+/*
+    wallHeatFlux_top
+    {
+	    // Mandatory entries
+	    type            wallHeatFlux;
+	    libs            (fieldFunctionObjects);
+
+	    // Optional entries
+	    patches          (topWall);
+	    //qr               qr;
+
+	    // Optional (inherited) entries
+	    writePrecision  10;
+	//    writeToFile     true;
+	//    useUserTime     true;
+
+	    //region          region0;
+	//    enabled         true;
+	//    log             true;
+	//    timeStart       0;
+	//    timeEnd         $(foamDictionary controlDict -entry endTime -value); //endTime;
+	    executeControl  timeStep;
+	    executeInterval 1;
+	    writeControl    writeTime;
+	    writeInterval   -1;
+    }
+*/
+
+}
+
+// ************************************************************************* //

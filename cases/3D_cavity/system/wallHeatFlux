@@ -1,0 +1,29 @@
+// -*- C++ -*-
+
+wallHeatFlux_top
+{
+    // Mandatory entries
+    type            wallHeatFlux;
+    libs            (fieldFunctionObjects);
+
+    // Optional entries
+    //patches          (topWall);
+    //qr               qr;
+
+    // Optional (inherited) entries
+    writePrecision  10;
+//    writeToFile     true;
+//    useUserTime     true;
+
+    //region          region0;
+//    enabled         true;
+//    log             true;
+//    timeStart       0;
+//    timeEnd         $(foamDictionary controlDict -entry endTime -value); //endTime;
+    executeControl  timeStep;
+    executeInterval 1;
+    writeControl    writeTime;
+    writeInterval   -1;
+}
+
+// ************************************************************************* //
