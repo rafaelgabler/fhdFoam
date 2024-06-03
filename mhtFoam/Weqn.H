@@ -1,6 +1,6 @@
 {
      // Defining mathematical functions used in the expressions bellow
-       volScalarField    MATH1 = exp(-pow(T/T1-363,2)/12); 
+       volScalarField    MATH1 = exp(-pow(T/T1-318,2)/12); 
        volScalarField    MATH2 = 1.83e-7*pow(T/T1-310,4.8);  
 
      forAll(T,i)
