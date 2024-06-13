@@ -43,6 +43,23 @@ volScalarField W
     mesh
 );
 
+
+Info<< "Reading field CORR\n" << endl;
+
+volScalarField corr
+(
+    IOobject
+    (
+        "corr",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+
 Info<< "Reading field U\n" << endl;
 
 volVectorField U
@@ -121,8 +138,8 @@ dimensionedScalar freq("freq", dimensionSet(0,0,-1,0,0,0,0), mhtQuantities);
 // Imaginary part of the complex susceptibility
 dimensionedScalar qui_imag("qui_imag", dimless, mhtQuantities);
 
-// Correction term for computing MF spreading
-dimensionedScalar corr("corr", dimless, mhtQuantities);
+// Diffusion coefficient of the particles
+dimensionedScalar diff("diff", dimensionSet(0,2,-1,0,0,0,0), mhtQuantities);
 
 // Blood density
 dimensionedScalar rhob("rhob", dimensionSet(1,-3,0,0,0,0,0), mhtQuantities);

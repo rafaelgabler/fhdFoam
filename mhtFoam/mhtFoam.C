@@ -89,6 +89,22 @@ int main(int argc, char *argv[])
 	Info<< "\nCalculating W field\n" << endl;
 	#include "Weqn.H"
 	
+	// Calculating the correction factor field
+	
+	fvScalarMatrix CORREqn
+            (       
+                fvm::ddt(corr)
+              - fvm::laplacian(diff, corr)
+             ==
+                fvOptions(corr)                             
+            );
+	
+	    CORREqn.relax();
+            fvOptions.constrain(CORREqn);
+            CORREqn.solve();
+            fvOptions.correct(corr);
+	
+	
         while (simple.correctNonOrthogonal())
         {
             fvScalarMatrix TEqn
