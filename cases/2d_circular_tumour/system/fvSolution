@@ -25,6 +25,15 @@ solvers
         norm            default;
     }
     
+    corr
+    {
+        solver           GAMG;
+        tolerance        1e-6;
+        relTol           0.01;
+        smoother         DICGaussSeidel;
+    }
+    
+    
 /*    ID
     {
         solver          PBiCGStab;

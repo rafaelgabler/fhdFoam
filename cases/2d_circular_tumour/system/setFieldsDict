@@ -17,14 +17,15 @@ FoamFile
 defaultFieldValues
 (
     volScalarFieldValue ID 0
+    volScalarFieldValue corr 0
 );
 
 regions
 (
 cylinderToCell
 {
-p1 (0.015 0.015 0); //Min
-p2 (0.015 0.015 0.03); //Max
+p1 (0.045 0.045 0); //Min
+p2 (0.045 0.045 0.01); //Max
 radius 0.005;
 
 fieldValues
@@ -32,6 +33,20 @@ fieldValues
 volScalarFieldValue ID 1
 );
 }
+
+cylinderToCell
+{
+p1 (0.045 0.045 0); //Min
+p2 (0.045 0.045 0.01); //Max
+radius 0.00287;
+
+fieldValues
+(
+volScalarFieldValue corr 1
+);
+}
+
+
 );
 
    

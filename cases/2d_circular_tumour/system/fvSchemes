@@ -28,6 +28,7 @@ divSchemes
 {
     default         none;
     div(phi,T)      Gauss linearUpwind grad(T);
+    div(phi,corr)      Gauss linearUpwind grad(T);    
   //div(phi,ID)     Gauss linearUpwind grad(ID);
 }
 
@@ -35,6 +36,7 @@ laplacianSchemes
 {
     default         none;
     laplacian(DT,T) Gauss linear corrected;
+    laplacian(diff,corr) Gauss linear corrected;
 }
 
 interpolationSchemes
