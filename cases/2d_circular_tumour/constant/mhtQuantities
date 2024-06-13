@@ -17,9 +17,9 @@ H0		3.0e+03;	// Applied field
 MD		4.46e+05;	// Magnetization of the particles
 fi		3.3e-02;	// Volume fraction of particles
 freq		1.84e+05;	// Frequency of the applied field
-qui_imag	1.50e-02;	// Imaginary part of the complex susceptibility 
+qui_imag	1.6285e-02;	// Imaginary part of the complex susceptibility 
 
-corr		4.5e-01;	// Correction factor
+diff		6.0e-09;	//  Diffusion coefficient of the particles
 
 Q1		7.0e+02;	// Metabolic generation on healthy tissue
 Q2		5.79e+03;	// Metabolic generation inside the tumour
