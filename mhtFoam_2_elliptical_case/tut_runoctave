@@ -1,0 +1,54 @@
+##############################################################
+# Como automatizar a produção de gráficos usando o octave ####
+##############################################################
+
+1.Organizar a probe
+
+O primeiro passo é criar a função probe dentro do controlDict. Coloque o seguinte comando no fim do arquivo
+
+functions
+{
+	probes
+	{
+		type		probes;
+		libs		("libsampling.so");
+		writeControl	timeStep;
+		writeInterval	1;
+		
+		fields
+		(
+			T
+		);
+		
+		probeLocations
+		(
+			(5.21338172E-02 0.09 0)
+			(0.127866194 0.09 0)
+		);
+	}
+}
+
+Em probeLocations acima coloque os pontos que quer verificar alguma variáveis, em fields defina essas variáveis.
+
+2.Rode o comando de pós-processamento no terminal do openfoam
+
+O comando é "postProcess -fields T"
+
+3. Usando o "run_octave.sh" 
+
+Copie o arquivo "run_octave.sh" para a pasta onde a simulação foi rodada, depois rode o comando chmod +x "run_octave.sh".
+
+Em seguida rode "./run_octave.sh"
+
+OBS: A princípio o run_octave.sh precisa ser modificado, coloque as dimensões do domínio de cálculo e número de malha, nessa parte:
+
+% estabelece as características do domínio de cálculo e da malha
+
+xb=0;
+xl=0.18;
+nx=200;
+yb=0;
+yl=0.18;
+ny=200;
+
+OBS: Em breve irei criar uma entrada interativa
