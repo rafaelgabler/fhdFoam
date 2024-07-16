@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      mhtQuantities;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+H0		3.0e+03;	// Applied field
+MD		4.46e+05;	// Magnetization of the particles
+fi		3.3e-02;	// Volume fraction of particles
+freq		1.84e+05;	// Frequency of the applied field
+qui_imag	1.6285e-02;	// Imaginary part of the complex susceptibility 
+
+diff		6.0e-09;	//  Diffusion coefficient of the particles
+
+Q1		7.0e+02;	// Metabolic generation on healthy tissue
+Q2		5.79e+03;	// Metabolic generation inside the tumour
+rho1		1.03e+03;	// Healthy tissue density		
+rho2		1.06e+03;	// Tumour tissue density
+rhob		1.05e+03;	// Blood density
+cp1		3.871e+03;	// Healthy tissue specific heat
+cp2		3.54e+03;	// Tumour tissue specific heat
+cb		4.18e+03;	// Blood specific heat
+Tb		3.10e+02;	// Arterial blood temperature
+// *************************************************************************//

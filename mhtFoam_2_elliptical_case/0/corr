@@ -1,0 +1,123 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       volScalarField;
+    location    "0";
+    object      corr;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   #codeStream
+{
+        codeInclude
+        #{
+                #include "fvCFD.H"
+                #include "Ostream.H"
+        #};
+
+        codeOptions
+        #{
+                -I$(LIB_SRC)/finiteVolume/lnInclude \
+                -I$(LIB_SRC)/meshTools/lnInclude
+        #};
+
+        codeLibs
+        #{
+                -lmeshTools \
+                -lfiniteVolume
+        #};
+
+        code
+        #{
+
+		const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+		const fvMesh& mesh = refCast<const fvMesh>(d.db());
+		scalarField corr(mesh.nCells(), 0.);
+		// tumor
+		
+		scalar raiott = 0.005;
+		scalar eet = 0.9;
+		scalar bet = raiott*pow((1-pow(eet,2)),0.25);
+		scalar aet = pow(pow(bet,2)*(pow(1-pow(eet,2),-1)),0.5);
+
+		
+		//fluid magnetic on first tumor
+		scalar raiot = 0.00287;
+		scalar ee = 0.9;
+		scalar be = raiot*pow((1-pow(ee,2)),0.25);
+		scalar ae = pow(pow(be,2)*(pow(1-pow(ee,2),-1)),0.5);
+		scalar he = 0.045 - 5*aet;
+		scalar ke = 0.045;
+		//fluid magnetic on second tumor
+		scalar raiot2 = 0.00287;
+		scalar ee2 = 0.9;
+		scalar be2 = raiot*pow((1-pow(ee,2)),0.25);
+		scalar ae2 = pow(pow(be,2)*(pow(1-pow(ee,2),-1)),0.5);
+		scalar he2 = 0.045 + 5*aet;
+		scalar ke2 = 0.045;
+		
+		
+		forAll(corr, i)
+                {
+                        const scalar x = mesh.C()[i][0];
+			const scalar y = mesh.C()[i][1];
+			const scalar z = mesh.C()[i][2];
+//		        const scalar y = mesh.C() [i][1];
+//            		const scalar z = mesh.C() [i][2];
+
+			// constant-gradient applied field
+			
+			if ( pow(y-ke,2) <= ((1 - pow(x-he,2)/pow(ae,2) )*pow(be,2)) )
+			{
+			corr[i] = 1.;
+			}
+			
+			if ( pow(y-ke2,2) <= ((1 - pow(x-he2,2)/pow(ae2,2) )*pow(be2,2)) )
+			{
+			corr[i] = 1.;
+			}
+			
+
+                }
+                corr.writeEntry("", os);
+
+        #};
+};
+
+boundaryField
+{
+    leftWall
+    {
+        type            zeroGradient;
+    }
+    rightWall
+    {
+        type            zeroGradient;
+    }
+    lowerWall
+    {
+        type            zeroGradient;
+    }
+    upperWall
+    {
+        type            zeroGradient;
+    }
+    defaultFaces
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //
