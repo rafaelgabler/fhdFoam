@@ -4,8 +4,11 @@ OpenFOAM based solver for simulating the temperature field of a biological tissu
 
 ## Governing Equations
 
+The governing equations solved by **mhtFoam** are given by:
 $$
-\rho c \frac{\partial T}{\partial t} = k \nabla^2 T - \rho_b c_b \omega_b (T - T_b) + \dot{Q}_m + \Phi \mu_0 \pi H_0^2 \chi^{''} f \\
+\rho c \frac{\partial T}{\partial t} = k \nabla^2 T - \rho_b c_b \omega_b (T - T_b) + \dot{Q}_m + \Phi \mu_0 \pi H_0^2 \chi^{''} f$$
+and
+$$
 \frac{\partial \Phi}{\partial t} = \mathcal{D}\nabla^2\Phi
 $$
 where $\rho$, $c$ and $k$ denote the local values of density, specific heat and thermal conductivity of the biological tissues involved respectively, $\rho_b$, $c_b$, $\omega_b$ and $T_b$ represent density, specific heat, perfusion rate and arterial temperature of the blood, $T(\vec{x},t)$ and $\Phi (\vec{x},t)$ represent temperature and normalized particle concentration fields, $\dot{Q}_m$ is the metabolic heat generation rate of the biological tissue, $\mu_0 = 4 \pi \times 10^{-7} H/m$ is the magnetic permeability of the free space, $H_0$ is the mean value of the applied field, $f$ is the frequency of the time-dependent field in Hz, $\mathcal{D}$ is a calibrated diffusion-like coefficient that accounts for the time the initial ferrofluid mass takes do spread around the surrounding tissues and finally $\chi^{''}$ is a dynamical property of the ferrofluid namely the imaginary part of the complex susceptibility. For details regarding the mathematical formulation used in the development of **mhtFoam** please consult Refs [1,2]
