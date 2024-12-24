@@ -24,7 +24,7 @@ In order to use the full functionalities of this package, you must have the foll
 - paraview;
 - python;
 
-In order to properly use the graphical functionalities provided by this project the user must also the following python packages:
+In order to properly use the graphical functionalities provided by this project the user must also install the following python packages:
 
 - 
 
