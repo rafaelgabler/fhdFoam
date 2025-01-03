@@ -9,65 +9,41 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      controlDict;
+    class       volScalarField;
+    object      W;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     mhtFoam_new;
+dimensions      [0 0 -1 0 0 0 0];
 
-startFrom       startTime;
+internalField   uniform 4e-4;
 
-startTime       0;
+boundaryField
+{
+    leftWall
+    {
+        type            zeroGradient;
+    }
 
-stopAt          endTime;
+    rightWall
+    {
+        type            zeroGradient;
+    }
 
-endTime         300;
+    lowerWall
+    {
+        type            zeroGradient;
+    }
 
-deltaT          0.1;
+    upperWall
+    {
+        type            zeroGradient;
+    }
 
-writeControl    timeStep;
+    defaultFaces
+    {
+        type            empty;
+    }
+}
 
-writeInterval   1;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable false;
-
-adjustTimeStep true;
-
-maxCo	1;
-
-
-//functions
-//{
-//	probes
-//	{
-//		type		probes;
-//		libs		("libsampling.so");
-//		writeControl	timeStep;
-//		writeInterval	1;
-//		
-//		fields
-//		(
-//			T
-//		);
-//		
-//		probeLocations
-//		(
-//			(0.040 0.045 0)
-//			(0.050 0.045 0)
-//		);
-//	}
-//}
 // ************************************************************************* //

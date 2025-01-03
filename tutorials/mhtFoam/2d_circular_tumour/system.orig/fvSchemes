@@ -10,64 +10,44 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      controlDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     mhtFoam_new;
+ddtSchemes
+{
+    default         Euler;
+}
 
-startFrom       startTime;
+gradSchemes
+{
+    default         Gauss linear;
+}
 
-startTime       0;
+divSchemes
+{
+    default         none;
+    div(phi,T)      Gauss linearUpwind grad(T);
+    div(phi,corr)      Gauss linearUpwind grad(T);    
+  //div(phi,ID)     Gauss linearUpwind grad(ID);
+}
 
-stopAt          endTime;
+laplacianSchemes
+{
+    default         none;
+    laplacian(DT,T) Gauss linear corrected;
+    laplacian(diff,corr) Gauss linear corrected;
+}
 
-endTime         300;
+interpolationSchemes
+{
+    default         linear;
+}
 
-deltaT          0.1;
-
-writeControl    timeStep;
-
-writeInterval   1;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable false;
-
-adjustTimeStep true;
-
-maxCo	1;
+snGradSchemes
+{
+    default         corrected;
+}
 
 
-//functions
-//{
-//	probes
-//	{
-//		type		probes;
-//		libs		("libsampling.so");
-//		writeControl	timeStep;
-//		writeInterval	1;
-//		
-//		fields
-//		(
-//			T
-//		);
-//		
-//		probeLocations
-//		(
-//			(0.040 0.045 0)
-//			(0.050 0.045 0)
-//		);
-//	}
-//}
 // ************************************************************************* //

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2312                                  |
+|  \\    /   O peration     | Version:  v2312                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,49 +9,49 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    arch        "LSB;label=32;scalar=64";
-    class       polyBoundaryMesh;
-    location    "constant/polyMesh";
-    object      boundary;
+    class       volScalarField;
+    object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-5
-(
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 308;
+
+boundaryField
+{
     leftWall
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          140;
-        startFace       38920;
+//        type            zeroGradient;
+        type		fixedValue;
+        value		uniform 308;
     }
+
     rightWall
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          140;
-        startFace       39060;
+//        type            zeroGradient;
+        type		fixedValue;
+        value		uniform 308;        
     }
+
     lowerWall
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          140;
-        startFace       39200;
+//        type            zeroGradient;
+        type		fixedValue;
+        value		uniform 308;        
     }
+
     upperWall
     {
-        type            patch;
-        nFaces          140;
-        startFace       39340;
+//        type            zeroGradient;
+        type		fixedValue;
+        value		uniform 308;        
     }
+
     defaultFaces
     {
         type            empty;
-        inGroups        1(empty);
-        nFaces          39200;
-        startFace       39480;
     }
-)
+}
 
 // ************************************************************************* //

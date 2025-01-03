@@ -46,43 +46,6 @@ internalField #codeStream
         scalarField ID(mesh.nCells(), 0.);
         //########### Aqui entra as informações dos tumores(raio,excentricidade,posições e inclinação)
 
-        //Tumor_1
-        scalar radius_1 = 0.005;
-        scalar eccen_1 = 0.9;
-        scalar posx_1 = 0.045;
-        scalar posy_1 = 0.045;
-        scalar inclination_1 = 0;
-        scalar inclination_rad_1 = inclination_1 * pi / 180.0;
-        scalar be_1 = radius_1*pow((1-pow(eccen_1,2)),0.25);
-        scalar ae_1 = pow(pow(be_1,2)*(pow(1-pow(eccen_1,2),-1)),0.5);
-
-        //Tumor_1
-        scalar radius_1 = 0.005;
-        scalar eccen_1 = 0.9;
-        scalar posx_1 = 0.03;
-        scalar posy_1 = 0.03;
-        scalar inclination_1 = 30;
-        scalar inclination_rad_1 = inclination_1 * pi / 180.0;
-        scalar be_1 = radius_1*pow((1-pow(eccen_1,2)),0.25);
-        scalar y_rot_1 = (y-posy_1)*cos(inclination_rad_1)-(x-posx_1)* sin(inclination_rad_1);
-        scalar x_rot_1 = (y-posy_1)*sin(inclination_rad_1)+(x-posx_1)* cos(inclination_rad_1);
-                if ( pow(y_rot_1,2) <= ((1 - pow(x_rot_1,2)/pow(ae_1,2) )*pow(be_1,2)) )
-                {
-                        ID[i] = 1.;
-                }
-
-        scalar ae_1 = pow(pow(be_1,2)*(pow(1-pow(eccen_1,2),-1)),0.5);
-
-        //Tumor_2
-        scalar radius_2 = 0.005;
-        scalar eccen_2 = 0.9;
-        scalar posx_2 = 0.06;
-        scalar posy_2 = 0.06;
-        scalar inclination_2 = 89;
-        scalar inclination_rad_2 = inclination_2 * pi / 180.0;
-        scalar be_2 = radius_2*pow((1-pow(eccen_2,2)),0.25);
-        scalar ae_2 = pow(pow(be_2,2)*(pow(1-pow(eccen_2,2),-1)),0.5);
-
         //##########
         forAll(ID, i)
         {
@@ -91,20 +54,6 @@ internalField #codeStream
                 const scalar z = mesh.C()[i][2];
         //###### Aqui entra as informações para definir região do tumor (circular ou elíptica)
        
-        scalar y_rot_1 = (y-posy_1)*cos(inclination_rad_1)-(x-posx_1)* sin(inclination_rad_1);
-        scalar x_rot_1 = (y-posy_1)*sin(inclination_rad_1)+(x-posx_1)* cos(inclination_rad_1);
-                if ( pow(y_rot_1,2) <= ((1 - pow(x_rot_1,2)/pow(ae_1,2) )*pow(be_1,2)) )
-                {
-                        ID[i] = 1.;
-                }
-
-        scalar y_rot_2 = (y-posy_2)*cos(inclination_rad_2)-(x-posx_2)* sin(inclination_rad_2);
-        scalar x_rot_2 = (y-posy_2)*sin(inclination_rad_2)+(x-posx_2)* cos(inclination_rad_2);
-                if ( pow(y_rot_2,2) <= ((1 - pow(x_rot_2,2)/pow(ae_2,2) )*pow(be_2,2)) )
-                {
-                        ID[i] = 1.;
-                }
-
         //######
        
         }

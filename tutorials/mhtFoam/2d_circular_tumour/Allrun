@@ -1,0 +1,32 @@
+#!/bin/sh
+#------------------------------------------------------------------------------
+# =========                 |
+# \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+#  \\    /   O peration     |
+#   \\  /    A nd           | www.openfoam.com
+#    \\/     M anipulation  |
+#------------------------------------------------------------------------------
+#     Copyright (C) 2011-2016 OpenFOAM Foundation
+#     Copyright (C) 2017-2021 OpenCFD Ltd.
+#------------------------------------------------------------------------------
+# License
+#     This file is part of OpenFOAM, distributed under GPL-3.0-or-later.
+#
+# Script
+#     Allrun
+#
+# Description
+#     Run tutorial cases and summarize the outcome as 'testLoopReport'
+#
+#------------------------------------------------------------------------------
+cd ${0%/*} || exit
+. $WM_PROJECT_DIR/bin/tools/RunFunctions  
+
+runApplication blockMesh
+runApplication decomposePar
+runParallel $(getApplication)
+#runApplication $(getApplication)
+#runApplication reconstructPar
+#rm -rf processor*
+#------------------------------------------------------------------------------
+
