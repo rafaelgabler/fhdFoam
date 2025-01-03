@@ -1,0 +1,17 @@
+#!/bin/sh
+cd "${0%/*}" || exit                            # Run from this directory
+. "${WM_PROJECT_DIR:?}"/bin/tools/CleanFunctions  # Tutorial log-file functions
+#------------------------------------------------------------------------------
+
+
+
+cleanCase0
+
+# foamCleanTutorials -self    # Run recursively but avoid self
+rm -rf processor*
+rm -rf constant/polyMesh
+rm -r system
+
+
+#------------------------------------------------------------------------------
+

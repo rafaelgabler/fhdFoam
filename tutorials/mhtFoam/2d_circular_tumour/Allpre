@@ -1,0 +1,11 @@
+#!/bin/sh
+# Source tutprial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions  
+#------------------------------------------------------------------------------
+
+restore0Dir
+
+cp -r ./system.orig ./system
+
+#------------------------------------------------------------------------------
+

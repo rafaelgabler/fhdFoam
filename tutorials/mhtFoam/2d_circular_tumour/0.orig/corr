@@ -46,24 +46,8 @@ internalField #codeStream
         scalar radius_mag = 0.00287;
 	//######################### Aqui entra com as informações do fluido magnético (raio e posições)
  
-        // fluid magnetic on tumor 1
-        scalar posx_1 = 0.045;
-        scalar posy_1 = 0.045;
-
-        // fluid magnetic on tumor 1
-        scalar posx_1 = 0.03;
-        scalar posy_1 = 0.03;
-
-        // fluid magnetic on tumor 2
-        scalar posx_2 = 0.06;
-        scalar posy_2 = 0.06;
-
 	// ################################
         forAll(corr, i)
-                if ( pow(y-posy_1,2) <= pow(radius_mag,2) - pow(x-posx_1,2) )
-                {
-                        corr[i] = 1.;
-                }
         {
                 const scalar x = mesh.C()[i][0];
                 const scalar y = mesh.C()[i][1];
@@ -72,14 +56,6 @@ internalField #codeStream
         //###################### Aqui define as regiões circulares do fluido magnético dentro dos tumores
 
         //#########################################
-                if ( pow(y-posy_1,2) <= pow(radius_mag,2) - pow(x-posx_1,2) )
-                {
-                        corr[i] = 1.;
-                }
-                if ( pow(y-posy_2,2) <= pow(radius_mag,2) - pow(x-posx_2,2) )
-                {
-                        corr[i] = 1.;
-                }
 
         }
         corr.writeEntry("", os);
