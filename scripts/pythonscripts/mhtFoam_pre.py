@@ -24,7 +24,7 @@ class Main_wind:
         altura_tela_1 = self.root_1.winfo_screenheight()
         self.largura_tela = largura_tela_1//4
         self.altura_tela = altura_tela_1//3
-        self.root_1.geometry(f'550x350+{self.largura_tela}+{self.altura_tela}')
+        self.root_1.geometry(f'600x350+{self.largura_tela}+{self.altura_tela}')
     def interface(self):
         ## Aqui deixa já aberto as seguintes funções
         self.define_titulo()
@@ -43,10 +43,10 @@ class Main_wind:
         self.primeiroContainer.pack(pady=20, padx=20)
         
         #Texto da intro do mhtFoam
-        texto1= """O solver mhtFoam simula o processo de magnetohipertermia
-aplicado a tratamento de tumores. Entre com as informações
-do domínio de cáculo/malha, do tempo e com as informações dos tumores
-através dos botões abaixo.
+
+        texto1= """mhtFoam simulates the heating proccess of circular and 
+        elliptical tumours subjected to magnetic hyperthermia. Please navigate
+        through the buttons bellow in order to configure your simulation.
 
 v 2.0"""
 
@@ -68,7 +68,7 @@ v 2.0"""
         
         # Botão para gerar setup
         
-        self.relatorio = cttk.CTkButton(self.terceiroContainer, text="Gerar Setup",
+        self.relatorio = cttk.CTkButton(self.terceiroContainer, text="Configure simulation",
                            width=12,  # Ajustado para largura em pixels
                            height=30,corner_radius=8,command=self.gera_setup)
         self.relatorio.pack(side=LEFT,padx=5)
@@ -76,35 +76,35 @@ v 2.0"""
         
         # Botão para iniciar simulação
         
-        self.simu = cttk.CTkButton(self.terceiroContainer, text="Iniciar simulação",
+        self.simu = cttk.CTkButton(self.terceiroContainer, text="Run simulation",
                            width=12,  # Ajustado para largura em pixels
                            height=30,corner_radius=8,command=self.simulation)
         self.simu.pack(side=RIGHT,padx=5)
         
         #Botão para adicionar parâmetros da malha
 
-        self.malha = cttk.CTkButton(self.segundoContainer, text="Parâmetros da malha",
+        self.malha = cttk.CTkButton(self.segundoContainer, text="Mesh properties",
                            width=150,  # Ajustado para largura em pixels
                            height=40,corner_radius=8,command=self.leitura_blockMeshDict)
         self.malha.pack(side=LEFT,padx=5)
         
         # Botão para adicionar parâmetros temporais
     
-        self.tempo = cttk.CTkButton(self.segundoContainer, text="Parâmetros temporais",
+        self.tempo = cttk.CTkButton(self.segundoContainer, text="Simulation time and time-step",
                            width=150,  # Ajustado para largura em pixels
                            height=40,corner_radius=8,command=self.leitura_ControlDict)
         self.tempo.pack(side=LEFT,padx=5)
        
         # Botão para adicionar parâmetros dos tumores
         
-        self.tumor = cttk.CTkButton(self.segundoContainer, text="Parâmetros dos tumores",
+        self.tumor = cttk.CTkButton(self.segundoContainer, text="Geometric data of the tumours",
                            width=150,  # Ajustado para largura em pixels
                            height=40,corner_radius=8,command=self.tumors)
         self.tumor.pack(side=RIGHT,padx=5)
         
         ## Botão para adicionar Pré-visualização
         
-        self.visu = cttk.CTkButton(self.terceiroContainer, text="Pré-visualização",
+        self.visu = cttk.CTkButton(self.terceiroContainer, text="Pre-visualization",
                            width=12,  # Ajustado para largura em pixels
                            height=30,corner_radius=8,command=self.visual)
         self.visu.pack(side=LEFT,padx=5)
@@ -116,7 +116,7 @@ v 2.0"""
         self.data={}
         ##Abre containers para as informações a serem plotadas
         self.control=cttk.CTkToplevel(root_1)
-        self.control.title("Parâmetros temporais")
+        self.control.title("Time parameters")
         self.controlcontainer1=cttk.CTkFrame(self.control)
         self.controlcontainer1.pack(pady=10, padx=10)
         self.controlcontainer2=cttk.CTkFrame(self.control)
@@ -127,7 +127,7 @@ v 2.0"""
         ##Endtime
             
         self.endtimeLabel = cttk.CTkLabel(self.controlcontainer1, 
-                              text="Tempo final (s): ")
+                              text="Final simulation time (s): ")
         self.endtimeLabel.pack(side="left")
         self.endtime = cttk.CTkEntry(self.controlcontainer1, 
                          width=300, 
@@ -175,7 +175,7 @@ v 2.0"""
         """
         ## Abre a janela principal
         self.parametro_window = cttk.CTkToplevel(root_1)
-        self.parametro_window.title("parâmetros do Domínio de Cálculo")
+        self.parametro_window.title("Calculation domain information")
         
         # Construção do container para a entrada de xmax
         self.segundo2Container = cttk.CTkFrame(self.parametro_window)
@@ -304,9 +304,9 @@ v 2.0"""
         self.confContainer1mesh =cttk.CTkFrame(self.confirmationmesh)
         self.confContainer1mesh.pack(pady=10, padx=20)
             
-        self.confirmationmesh.title("Confirmação")
+        self.confirmationmesh.title("Confirmation")
         self.confirmationmeshLabel = cttk.CTkLabel(self.confContainermesh, 
-                              text="Parâmetros da malha salvos com sucesso.")
+                              text="Mesh properties successfully saved")
         self.confirmationmeshLabel.pack(side="left")
             
         self.confirmationmeshbutton = cttk.CTkButton(self.confContainer1mesh, text="Ok",
@@ -331,7 +331,7 @@ v 2.0"""
         self.tumor_windows = []
         ## Abre janela
         self.tumor_count=cttk.CTkToplevel()
-        self.tumor_count.title("Parâmetros dos tumores")
+        self.tumor_count.title("Information of the tumours")
         
         ## Container
         self.uniqueContainer = cttk.CTkFrame(self.tumor_count)
@@ -504,9 +504,9 @@ v 2.0"""
             self.confContainer1 =cttk.CTkFrame(self.confirmation)
             self.confContainer1.pack(pady=10, padx=20)
             
-            self.confirmation.title("Confirmação")
+            self.confirmation.title("Confirmation")
             self.confirmationLabel = cttk.CTkLabel(self.confContainer, 
-                              text="Parâmetros de todos os tumores salvos com sucesso.")
+                              text="Tumours data successfuly saved")
             self.confirmationLabel.pack(side="left")
             
             ## Botão de ok
@@ -523,27 +523,37 @@ v 2.0"""
     	# Gerar o setup é substituir os dados coletados nos respectivos arquivos
         import json
         import os
+        allpre_dir = "../../tutorials/mhtFoam/2d_circular_tumour"
+        # Muda o diretório de trabalho para o local do Allpre
+        os.chdir(allpre_dir)
         # Limpa pasta e prepara a simulação copiando arquivos da pasta 0 e system de volta
-        os.system("../../tutorials/mhtFoam/2d_circular_tumour/Allclean")
-        os.system("../../tutorials/mhtFoam/2d_circular_tumour/Allpre")
-        
+        os.system("./Allclean")
+        os.system("./Allpre")
         # Gera o json caso o usuario se esqueça
         self.gera_json_tumor
         self.gera_json_malha
 
         indexx=self.current_index+1
-        
+        base_dir = "../../scripts/pythonscripts"
+
+        # Construir os caminhos completos para cada arquivo JSON
+        #json_file_path1 = os.path.join(base_dir, self.outJson)
+        #json_file_path3 = os.path.join(base_dir, self.outJson3)
+        #json_file_path2 = os.path.join(base_dir, self.outJson2)
+        json_file_path1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_blockMeshDict.json")
+        json_file_path3 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_controlDict.json")
+        json_file_path2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_ID.json")
         ## Aqui chama o outro arquivo substitute_values_2 e altera os arquivos de acordo com as funções de lá
-        with open(self.outJson,'r') as f:
+        with open(json_file_path1,'r') as f:
             data = json.load(f)
         inputDict = generate_dictionary_2(data)
         changeFileDict(inputDict)
-        with open(self.outJson3,'r') as f:
+        with open(json_file_path3,'r') as f:
             data = json.load(f)
         inputDict = generate_dictionary_1(data)
         changeFileDict(inputDict)
         #for indexx in range(1,self.current_index+1):
-        with open(self.outJson2,'r') as f:
+        with open(json_file_path2,'r') as f:
             data = json.load(f)
         inputDict = generate_dictionary_3(data,indexx)
         changeFileDict_2(inputDict)
@@ -553,7 +563,7 @@ v 2.0"""
         
         ##Abre janela
         visuwind = cttk.CTkToplevel(root_1)
-        visuwind.title("pré visualizar")
+        visuwind.title("Preview window")
         
         ##Define configurações de onde vai ser plotado
         fig = Figure(figsize=(5, 5), dpi=100)

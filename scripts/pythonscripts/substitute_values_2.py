@@ -1,5 +1,6 @@
 import re
 import json
+import os
 
 # Modifica o blockMeshDict e o controlDict
 def changeFileDict(dict1):
@@ -20,10 +21,12 @@ def changeFileDict(dict1):
 
 # Modifica o ID e o corr
 def changeFileDict_2(tumor_dict):
-
+    dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
     ## Arquivos a serem alterados
-    input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
-    input_file_2 = "../../tutorials/mhtFoam/2d_circular_tumour/0/corr"
+    #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
+    input_file = os.path.join(dir,"2d_circular_tumour/0/ID")
+    #input_file_2 = "../../tutorials/mhtFoam/2d_circular_tumour/0/corr"
+    input_file_2 = os.path.join(dir,"2d_circular_tumour/0/corr")
     
     ## Contar tumores
     i=0
@@ -49,7 +52,7 @@ def changeFileDict_2(tumor_dict):
         tumor_data_lines.append(f"        //Tumor_{i}\n")
         fluid_data_lines.append(f"        // fluid magnetic on tumor {i}\n")
         ##Aqui modifica os dados que foram entrados diretamento com o usuário
-        for param in tumor_data["../../tutorials/mhtFoam/2d_circular_tumour/0/ID"]:
+        for param in tumor_data[input_file]:
             for key, value in param.items():
                 scalar_name = key
                 scalar_value = value["value"]
@@ -101,10 +104,12 @@ def changeFileDict_2(tumor_dict):
         file2.writelines(lines2)
 
 # Estabelece a relação do que modificar com o valor a ser modificado para o controlDict
-def generate_dictionary_1(data,dir="../../tutorials/mhtFoam/2d_circular_tumour"): 
+def generate_dictionary_1(data,dir=None): 
     #print(data["endtime"])
+    if dir is None:
+        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
     dict1 = {
-        f"{dir}/system/controlDict":
+        os.path.join(dir,"2d_circular_tumour/system/controlDict"):
          [
             {"endtime":{"exp":"{endtime}","value":data["endtime"]}},
             #{"endTime":{"exp":"\s+[0-9]+","value":tf}}
@@ -115,9 +120,12 @@ def generate_dictionary_1(data,dir="../../tutorials/mhtFoam/2d_circular_tumour")
     return dict1
 
 # Estabelece a relação do que modificar com o valor a ser modificado para o blockMeshDict
-def generate_dictionary_2(data,dir="../../tutorials/mhtFoam/2d_circular_tumour"):
+#def generate_dictionary_2(data,dir="../../tutorials/mhtFoam/2d_circular_tumour"):
+def generate_dictionary_2(data,dir=None):
+    if dir is None:
+        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
     dict1 = {
-        f"{dir}/system/blockMeshDict":
+        os.path.join(dir, "2d_circular_tumour/system/blockMeshDict"):
          [
              {"xmax":{"exp":"{xmax}","value":data["xmax"]}},
              {"ymax":{"exp":"{ymax}","value":data["ymax"]}},
@@ -130,12 +138,14 @@ def generate_dictionary_2(data,dir="../../tutorials/mhtFoam/2d_circular_tumour")
     return dict1
 
 # Estabelece a relação do que modificar com o valor a ser modificado para o ID
-def generate_dictionary_3(data,indexx,dir="../../tutorials/mhtFoam/2d_circular_tumour"):
+def generate_dictionary_3(data,indexx,dir=None):
     #print(index)
+    if dir is None:
+        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
     tumor_dict = {}
     for i in range(1, indexx+1):  # Certifique-se de iterar até indexx inclusive
         tumor_dict[f"dict{i}"] = {
-            f"{dir}/0/ID": [
+            os.path.join(dir, "2d_circular_tumour/0/ID"): [
                 {f"radius_{i}": {"exp": "{radius}", "value": data["tumors"][i-1][f"radius_{i}"]}},
                 {f"eccen_{i}": {"exp": "{eccen}", "value": data["tumors"][i-1][f"eccen_{i}"]}},
                 {f"posx_{i}": {"exp": "{posx}", "value": data["tumors"][i-1][f"posx_{i}"]}},

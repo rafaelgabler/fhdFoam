@@ -24,25 +24,49 @@ In order to use the full functionalities of this package, you must have the foll
 
 - openFoam v2306 or higher;
 - paraview;
-- python;
+- python3 or higher;
 
 In order to properly use the graphical functionalities provided by the scripts included in this package the user must also install the following python packages:
 
-- 
+- matplotlib
+- customtkinter
+
+In order to install matplotlib you could type the following command in a terminal (for Debian/Ubuntu users):
+
+`apt-get install python3-matplotlib`
+
+To install customtkinter please type (for Debian/Ubuntu users):
+
+`pip3 install customtkinter --break-system-packages`
+
 
 # Configuration
 
-In order to compile a given solver, it is recommended to put them in a folder named my_solvers in the openfoam user folder. If you do not have this folder, please create it. When you first install openFoam, you must create an openFoam user folder. To achieve this, please type the following command inside the openfoam bash (right after the openfoam installation):
+## Solver's compilation
+
+In order to compile a given solver you should type `wmake` inside a given's solver folder. But in order to run all functionalities of **fhdFoam** we recommend that you clone this repository inside openFoam's user folder. If you do not have this folder, please create it. When you first install openFoam this folder is not created by defacult and you should create it by typing the following command inside the openfoam bash (right after the openfoam installation):
 
 `mkdir -p $FOAM_RUN`
 
-Whenever you type: `ufoam` inside the openfoam bash it will direct you to this folder, where you should see a run folder.
+Now, whenever you type: `ufoam` inside the openfoam bash it will direct you to this folder, where you should see a run folder.
 
-Inside the openFoam user folder type `mkdir my_solvers` to create the folder where you will put the project solvers.
+Inside the openFoam user clone this repository with the following command: 
 
-To compile one of the fhdFoam solvers upload the solver folder inside **my_folder** path and in the solver folder type: `wmake`
+`git clone https://github.com/rafaelgabler/fhdFoam.git`
 
-This will compile the code, that should be called inside a given case folder by its own name. The tutorials folder contain one or more corresponding cases for each solver. For each solver we include the case used to validate each solver. The documentation for the validation of each solver can be found in the individual README file of the corresponding solver.
+After clonning this repository inside this folder you should compile the projects solver by running the installation script. In order to do so please type: `./install.sh`
+
+This will compile all the project's solvers. In order to run an individual case of a specific solver, you can look into the tutorials folder, which contains one or more corresponding cases for each solver. For each solver we include the case used to validate it. The documentation for the validation of each solver can be found in the individual README file of the corresponding solver.
+
+## Graphical user interface
+
+**fhdFoam** is intended to spread the ideas of ferrohydrodynamics trying to make this a more popular field of interest and research. In this sense, it is developed under the philosophy that it should be user friendly in a sense that people with no previous openFoam experience could play with it through a graphical user interface (GUI) and simulate interesting problems in the context of **FHD**.
+
+After installing all the python packages and pre-requisites to use **fhdFoam** we can now play with our GUI. In order to do so just call the *fhdFoam.py* script located in the main folder of the project by typing:
+
+`python3 fhdFoam.py`
+
+Then, you just need to answer the questions that will appear on the windows in order to configure and run a given simulation.
 
 ## Gallery
 
