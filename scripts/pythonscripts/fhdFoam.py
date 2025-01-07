@@ -85,9 +85,9 @@ class Main_wind:
         """
 
         import os
-        python_script_dir = "scripts/pythonscripts"
+        #python_script_dir = "scripts/pythonscripts"
         # Muda o diretório de trabalho para o local do Allpre
-        os.chdir(python_script_dir)
+        # os.chdir(python_script_dir)
         # Chama o script mhtFoam_pre.py 
         os.system("python3 mhtFoam_pre.py")
         
