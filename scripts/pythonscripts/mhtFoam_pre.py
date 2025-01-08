@@ -18,7 +18,7 @@ class Main_wind:
         self.root_1.title("mhtFoam")
         self.fontePadrao = ("Adobe Myungjo Std M", "11")
         self.fonteBotoes = ("Arial", "10")
-        cttk.set_appearance_mode("Dark")
+        cttk.set_appearance_mode("White")
         
         largura_tela_1 = self.root_1.winfo_screenwidth()
         altura_tela_1 = self.root_1.winfo_screenheight()

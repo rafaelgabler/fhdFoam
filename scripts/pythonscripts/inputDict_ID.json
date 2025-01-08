@@ -2,31 +2,38 @@
     "tumors": [
         {
             "radius_1": "0.005",
-            "eccen_1": "0.9",
+            "eccen_1": "0.3",
             "posx_1": "0.03",
-            "posy_1": "0.045",
+            "posy_1": "0.02",
             "inclination_1": "30"
         },
         {
-            "radius_2": "0.005",
+            "radius_2": "0.004",
             "eccen_2": "0.9",
-            "posx_2": "0.06",
-            "posy_2": "0.045",
-            "inclination_2": "150"
+            "posx_2": "0.05",
+            "posy_2": "0.06",
+            "inclination_2": "90"
         },
         {
-            "radius_3": "0.005",
-            "eccen_3": "0.9",
-            "posx_3": "0.045",
-            "posy_3": "0.06",
-            "inclination_3": "90"
+            "radius_3": "0.006",
+            "eccen_3": "0.4",
+            "posx_3": "0.07",
+            "posy_3": "0.08",
+            "inclination_3": "12"
         },
         {
             "radius_4": "0.005",
-            "eccen_4": "0.9",
-            "posx_4": "0.045",
-            "posy_4": "0.03",
-            "inclination_4": "90"
+            "eccen_4": "0.7",
+            "posx_4": "0.03",
+            "posy_4": "0.06",
+            "inclination_4": "40"
+        },
+        {
+            "radius_5": "0.003",
+            "eccen_5": "0",
+            "posx_5": "0.045",
+            "posy_5": "0.09",
+            "inclination_5": "0"
         }
     ]
 }
