@@ -70,13 +70,17 @@ In order to run the simulations manually, once you have compiled the solvers of 
 
 # Gallery
 
+Bellow we show the mesh used for the 3D cavity problem associated with thermomagnetic convection using a three magnet array to induce the magnetic field simulated with magnetoconvectionFoam
 
 <img src="figs/convection1.png" width="400" height="200">
 
-Three magnet array used in the thermomagnetic convection problem simulated with magnetoconvectionFoam
+Here we may see a partial obstruction of the flow in the region of action of the magnetic field.
 
-<div class="figure-center"> <img src="figs/convection2.png" width="200" height="300" /> </div> 
+<div class="figure-center"> <img src="figs/convection2.png" width="300" height="420" /> </div> 
 
+Bellow we can see the vortex induced by the motion of a magnetic drop being carried by the action of an external magnetic field in a simulation performed with intermagFoam.
+
+<div class="figure-center"> <img src="figs/intermag1.png" width="450" height="300" /> </div> 
 
 ## References
 
