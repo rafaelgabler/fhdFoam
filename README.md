@@ -66,7 +66,7 @@ Then, you just need to answer the questions that will appear on the windows in o
 
 ## Running the simulations manually
 
-
+In order to run the simulations manually, once you have compiled the solvers of the project you just need to copy the tutorial cases to your user folder and edit manually the configuration files. All cases come with *Allrun*, *Allclean* and *Allpre* scripts in order to help the user with the necessary procedures to run each simulation scenario.
 
 # Gallery
 
