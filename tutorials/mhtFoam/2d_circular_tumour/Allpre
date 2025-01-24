@@ -6,6 +6,7 @@
 restore0Dir
 
 cp -r ./system.orig ./system
+cp -r ./constant.orig ./constant
 
 #------------------------------------------------------------------------------
 

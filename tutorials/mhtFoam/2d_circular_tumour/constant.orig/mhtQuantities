@@ -13,14 +13,12 @@ FoamFile
     object      mhtQuantities;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-H0		3.0e+03;	// Applied field
+H0		532;	// Applied field
 MD		4.46e+05;	// Magnetization of the particles
-fi		3.3e-02;	// Volume fraction of particles
-freq		1.84e+05;	// Frequency of the applied field
-qui_imag	1.6285e-02;	// Imaginary part of the complex susceptibility 
-
+fi		2;	// Volume fraction of particles
+freq		43;	// Frequency of the applied field
+qui_imag	2;	// Imaginary part of the complex susceptibility 
 diff		6.0e-09;	//  Diffusion coefficient of the particles
-
 Q1		7.0e+02;	// Metabolic generation on healthy tissue
 Q2		5.79e+03;	// Metabolic generation inside the tumour
 rho1		1.03e+03;	// Healthy tissue density		
