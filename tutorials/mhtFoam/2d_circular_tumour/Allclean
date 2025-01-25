@@ -11,6 +11,7 @@ cleanCase0
 rm -rf processor*
 rm -rf constant/polyMesh
 rm -r system
+rm -r constant
 
 
 #------------------------------------------------------------------------------
