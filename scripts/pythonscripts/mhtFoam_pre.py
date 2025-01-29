@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import simpledialog, messagebox, Tk, Frame, Label, LEFT, RIGHT, Button, Entry,font
-from edit_lybraries import  generate_dictionary_3, changeFileDict, changeFileDict_2
-from edit_lybraries import generate_dictionary_1, generate_dictionary_2
+from edit_lybraries import  generate_dictionary_3, changeFileDict, changeFileDict_2,generate_dictionary_6
+from edit_lybraries import generate_dictionary_1, generate_dictionary_2,changeFileDict_6
 from edit_lybraries import generate_dictionary_4,changeFileDict_4,generate_dictionary_5
 import customtkinter as cttk
 from matplotlib.figure import Figure
@@ -241,7 +241,7 @@ v 2.0"""
         self.magnetic_fieldLabel.pack(side="left")
         self.magnetic_field = cttk.CTkEntry(self.fieldcontainer1, 
                          width=300, 
-                         placeholder_text="1.0e+5")
+                         placeholder_text="3.0e+03")
         self.magnetic_field.pack(side="right")
 
         # Entrada da frequência do campo
@@ -862,27 +862,35 @@ v 2.0"""
                 t = np.linspace(0, 2 * np.pi, 100)
                 ellipse_x = radius/(np.sqrt(1-eccen**2)) * np.cos(t)
                 ellipse_y = radius * np.sin(t)
-                ellipse_xmag=0.00287*np.cos(t)
-                ellipse_ymag=0.00287*np.sin(t)
-                
-            
+                      
             # Rotação da elipse
                 ##Tumor
                 x_rot = posx +ellipse_x*np.cos(np.radians(inclination))-ellipse_y*np.sin(np.radians(inclination))
                 y_rot = posy +ellipse_x*np.sin(np.radians(inclination))+ellipse_y*np.cos(np.radians(inclination))
-                ##Fluido magnético
-                x_mag= posx+ellipse_xmag
-                y_mag= posy+ellipse_ymag
-            # Plotando o tumor e o fluido
+            # Plotando o tumor
                 ax.fill(x_rot, y_rot, color='blue', label=f"Tumor {i} at ({posx}, {posy})")
-                ax.fill(x_mag, y_mag, color='black', label=f"Tumor {i} at ({posx}, {posy})")
                 
+            for i, magdrop in enumerate(self.data_tmag["magnetic_fluid"], start=1):
+                # Acessando os dados da gota de fluido
+                posx_mag = float(magdrop[f"posx_{i}"])
+                posy_mag = float(magdrop[f"posy_{i}"])
+                volume_mag = float(magdrop[f"volume_{i}"])
+
+                # Gerando a forma
+                t = np.linspace(0, 2 * np.pi, 100)
+                ellipse_xmag=((3*volume_mag/(4*np.pi))**(1/3))*np.cos(t)
+                ellipse_ymag=((3*volume_mag/(4*np.pi))**(1/3))*np.sin(t)
+
+                ##Fluido magnético
+                x_mag= posx_mag+ellipse_xmag
+                y_mag= posy_mag+ellipse_ymag
+                
+                # Plotando a gota de fluido magnético
+                ax.fill(x_mag, y_mag, color='black', label=f"Magentic fluid {i} at ({posx_mag}, {posy_mag})")
         ## Coloquei aqui porque só o try dá erro, complemento do try
         except KeyError as item:
             print(f"Erro: Não achei o item {item} no dicionário de tumores.")
-        
 
- 
         ##Define os limites de acordo com os dados entrados para o blockMeshDict
         ax.set_xlim(0, self.xmax1)
         ax.set_ylim(0, self.ymax1)
