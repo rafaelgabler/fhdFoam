@@ -42,23 +42,35 @@ class Main_wind:
         """
         # Construção do container para título da janela
         
-        self.primeiroContainer = cttk.CTkFrame(root_1)
-        self.primeiroContainer.pack(pady=10, padx=20)
+        #self.primeiroContainer = cttk.CTkFrame(root_1)
+        #self.primeiroContainer.pack(pady=10, padx=20)
+        self.primeiroContainer = cttk.CTkFrame(self.root_1, corner_radius=15, fg_color="#2B2B2B")
+        self.primeiroContainer.pack(pady=10, padx=25, fill="x")
         
         #Texto da intro do mhtFoam
 
-        texto1= """mhtFoam simulates the heating proccess of circular and 
-        elliptical tumours subjected to magnetic hyperthermia. Please navigate
-        through the buttons bellow in order to configure your simulation.
+        texto1= """mhtFoam simulates the heating proccess of circular and elliptical tumours subjected to magnetic hyperthermia. Please navigate through the buttons bellow in order to configure your simulation.
 
 v 2.0"""
 
         # Atribuição do título dentro da janela (1a informação exibida)
         
-        self.titulo = cttk.CTkLabel(self.primeiroContainer, 
-                           text=texto1,
-                           justify="center",font=("Ubuntu",16))
-        self.titulo.pack(pady=5, padx=5)
+        #self.titulo = cttk.CTkLabel(self.primeiroContainer, 
+        #                   text=texto1,
+        #                   justify="center",font=("Ubuntu",16))
+        #self.titulo.pack(pady=5, padx=5)
+#
+        self.titulo = cttk.CTkLabel(
+
+        self.primeiroContainer,
+        text=texto1,
+        #justify="center",
+        font=("Ubuntu", 15, "bold"),
+        text_color="white",  # Melhor contraste no fundo escuro
+        wraplength=498,  # Mantém a formatação organizada 
+        justify="center"
+        )
+        self.titulo.pack(pady=8, padx=15)
     def botoes_main_wind(self):
         ## Aqui define toda a estrutura da janela principal
 
@@ -99,14 +111,14 @@ v 2.0"""
         
         # Botão para gerar setup  
         self.relatorio = cttk.CTkButton(self.terceiroContainer, text="Configure simulation",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.gera_setup)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.gera_setup)
         self.relatorio.pack(side=LEFT,padx=5)
         
         # Botão para iniciar simulação
         self.simu = cttk.CTkButton(self.terceiroContainer, text="Run simulation",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.simulation)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.simulation)
         self.simu.pack(side=RIGHT,padx=5)
 
         ##################################################
@@ -309,7 +321,7 @@ v 2.0"""
 
         # Título do container relativo ao tumor
         self.tumor_count_numlabel = cttk.CTkLabel(self.uniqueContainer, 
-                              text="How many tumors ")
+                              text="Number of tumors: ")
         self.tumor_count_numlabel.pack(side="left")
        
         ## Variável de entrada que conta os tumores
@@ -325,7 +337,7 @@ v 2.0"""
 
         # Título do container relativo ao fluido magnético
         self.fluid_count_numlabel = cttk.CTkLabel(self.uniqueContainer2, 
-                              text="Amount of magnetic fluid's injection points ")
+                              text="Number of magnetic fluid injection sites: ")
         self.fluid_count_numlabel.pack(side="left")
         
         ## Variável de entrada que conta os pontos de injeção
@@ -351,8 +363,8 @@ v 2.0"""
         ## Botão para adicionar Pré-visualização
         
         self.visu = cttk.CTkButton(self.terceiroContainer, text="Pre-visualization",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.visual)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.visual)
         self.visu.pack(side=LEFT,padx=5)
 
     ## Aqui conta a quantidade de tumores e abre a quantidade de janelas correspondente a entrada

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('TkAgg') 
 import matplotlib.pyplot as plt
+import customtkinter as cttk
 from mpl_toolkits.mplot3d import Axes3D
 
 class main_pos:
@@ -12,10 +13,17 @@ class main_pos:
     matplotlib.use('TkAgg') 
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d import Axes3D
+    def __init__(self):
+        print("Inicializando a classe...")
     def visual_pos(self):
+        import os
+        import numpy as np
+        import matplotlib
+        matplotlib.use('TkAgg') 
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.mplot3d import Axes3D
         # Obter o diretório do script
         script_dir = os.path.dirname(os.path.realpath(__file__))
-
         # Caminho para os arquivos de dados
         file_path = os.path.join(script_dir, '../../tutorials/mhtFoam/2d_circular_tumour/postProcessing/probes/0/T')
         file_path2 = os.path.join(script_dir, '../../tutorials/mhtFoam/2d_circular_tumour/postProcessing/probes/0/W')
@@ -141,3 +149,9 @@ class main_pos:
 
         # Mostrar o gráfico 2D
         plt.show()
+        
+
+
+if __name__ == "__main__":
+    app = main_pos()
+    app.visual_pos()
