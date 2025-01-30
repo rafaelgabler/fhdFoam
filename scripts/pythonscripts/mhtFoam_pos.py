@@ -127,9 +127,6 @@ class main_pos:
         #print(f"Número total esperado de temperaturas: {xnode * ynode}")
         #print(f"Número total de temperaturas no arquivo: {len(temperature_data)}")
 
-        # Criar o gráfico 2D
-        #fig, ax = plt.subplots(figsize=(10, 8))
-
         # GRÁFICO 2D
         fig_2d, ax_2d = plt.subplots(figsize=(10, 8))
         contour = ax_2d.contourf(X, Y, temperatures, cmap='plasma', shading='auto')
