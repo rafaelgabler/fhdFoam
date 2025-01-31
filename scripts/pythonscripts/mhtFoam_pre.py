@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import simpledialog, messagebox, Tk, Frame, Label, LEFT, RIGHT, Button, Entry,font
-from edit_lybraries import  generate_dictionary_3, changeFileDict, changeFileDict_2
-from edit_lybraries import generate_dictionary_1, generate_dictionary_2
+from edit_lybraries import  generate_dictionary_3, changeFileDict, changeFileDict_2,generate_dictionary_6
+from edit_lybraries import generate_dictionary_1, generate_dictionary_2,changeFileDict_6
 from edit_lybraries import generate_dictionary_4,changeFileDict_4,generate_dictionary_5
 import customtkinter as cttk
 from matplotlib.figure import Figure
@@ -42,23 +42,35 @@ class Main_wind:
         """
         # Construção do container para título da janela
         
-        self.primeiroContainer = cttk.CTkFrame(root_1)
-        self.primeiroContainer.pack(pady=10, padx=20)
+        #self.primeiroContainer = cttk.CTkFrame(root_1)
+        #self.primeiroContainer.pack(pady=10, padx=20)
+        self.primeiroContainer = cttk.CTkFrame(self.root_1, corner_radius=15, fg_color="#2B2B2B")
+        self.primeiroContainer.pack(pady=10, padx=25, fill="x")
         
         #Texto da intro do mhtFoam
 
-        texto1= """mhtFoam simulates the heating proccess of circular and 
-        elliptical tumours subjected to magnetic hyperthermia. Please navigate
-        through the buttons bellow in order to configure your simulation.
+        texto1= """mhtFoam simulates the heating proccess of circular and elliptical tumours subjected to magnetic hyperthermia. Please navigate through the buttons bellow in order to configure your simulation.
 
 v 2.0"""
 
         # Atribuição do título dentro da janela (1a informação exibida)
         
-        self.titulo = cttk.CTkLabel(self.primeiroContainer, 
-                           text=texto1,
-                           justify="center",font=("Ubuntu",16))
-        self.titulo.pack(pady=5, padx=5)
+        #self.titulo = cttk.CTkLabel(self.primeiroContainer, 
+        #                   text=texto1,
+        #                   justify="center",font=("Ubuntu",16))
+        #self.titulo.pack(pady=5, padx=5)
+#
+        self.titulo = cttk.CTkLabel(
+
+        self.primeiroContainer,
+        text=texto1,
+        #justify="center",
+        font=("Ubuntu", 15, "bold"),
+        text_color="white",  # Melhor contraste no fundo escuro
+        wraplength=498,  # Mantém a formatação organizada 
+        justify="center"
+        )
+        self.titulo.pack(pady=8, padx=15)
     def botoes_main_wind(self):
         ## Aqui define toda a estrutura da janela principal
 
@@ -99,14 +111,14 @@ v 2.0"""
         
         # Botão para gerar setup  
         self.relatorio = cttk.CTkButton(self.terceiroContainer, text="Configure simulation",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.gera_setup)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.gera_setup)
         self.relatorio.pack(side=LEFT,padx=5)
         
         # Botão para iniciar simulação
         self.simu = cttk.CTkButton(self.terceiroContainer, text="Run simulation",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.simulation)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.simulation)
         self.simu.pack(side=RIGHT,padx=5)
 
         ##################################################
@@ -241,7 +253,7 @@ v 2.0"""
         self.magnetic_fieldLabel.pack(side="left")
         self.magnetic_field = cttk.CTkEntry(self.fieldcontainer1, 
                          width=300, 
-                         placeholder_text="1.0e+5")
+                         placeholder_text="3.0e+03")
         self.magnetic_field.pack(side="right")
 
         # Entrada da frequência do campo
@@ -309,7 +321,7 @@ v 2.0"""
 
         # Título do container relativo ao tumor
         self.tumor_count_numlabel = cttk.CTkLabel(self.uniqueContainer, 
-                              text="How many tumors ")
+                              text="Number of tumors: ")
         self.tumor_count_numlabel.pack(side="left")
        
         ## Variável de entrada que conta os tumores
@@ -325,7 +337,7 @@ v 2.0"""
 
         # Título do container relativo ao fluido magnético
         self.fluid_count_numlabel = cttk.CTkLabel(self.uniqueContainer2, 
-                              text="Amount of magnetic fluid's injection points ")
+                              text="Number of magnetic fluid injection sites: ")
         self.fluid_count_numlabel.pack(side="left")
         
         ## Variável de entrada que conta os pontos de injeção
@@ -351,8 +363,8 @@ v 2.0"""
         ## Botão para adicionar Pré-visualização
         
         self.visu = cttk.CTkButton(self.terceiroContainer, text="Pre-visualization",
-                           width=12,  # Ajustado para largura em pixels
-                           height=30,corner_radius=8,command=self.visual)
+                           width=15,  # Ajustado para largura em pixels
+                           height=35,corner_radius=8,command=self.visual)
         self.visu.pack(side=LEFT,padx=5)
 
     ## Aqui conta a quantidade de tumores e abre a quantidade de janelas correspondente a entrada
@@ -862,27 +874,35 @@ v 2.0"""
                 t = np.linspace(0, 2 * np.pi, 100)
                 ellipse_x = radius/(np.sqrt(1-eccen**2)) * np.cos(t)
                 ellipse_y = radius * np.sin(t)
-                ellipse_xmag=0.00287*np.cos(t)
-                ellipse_ymag=0.00287*np.sin(t)
-                
-            
+                      
             # Rotação da elipse
                 ##Tumor
                 x_rot = posx +ellipse_x*np.cos(np.radians(inclination))-ellipse_y*np.sin(np.radians(inclination))
                 y_rot = posy +ellipse_x*np.sin(np.radians(inclination))+ellipse_y*np.cos(np.radians(inclination))
-                ##Fluido magnético
-                x_mag= posx+ellipse_xmag
-                y_mag= posy+ellipse_ymag
-            # Plotando o tumor e o fluido
+            # Plotando o tumor
                 ax.fill(x_rot, y_rot, color='blue', label=f"Tumor {i} at ({posx}, {posy})")
-                ax.fill(x_mag, y_mag, color='black', label=f"Tumor {i} at ({posx}, {posy})")
                 
+            for i, magdrop in enumerate(self.data_tmag["magnetic_fluid"], start=1):
+                # Acessando os dados da gota de fluido
+                posx_mag = float(magdrop[f"posx_{i}"])
+                posy_mag = float(magdrop[f"posy_{i}"])
+                volume_mag = float(magdrop[f"volume_{i}"])
+
+                # Gerando a forma
+                t = np.linspace(0, 2 * np.pi, 100)
+                ellipse_xmag=((3*volume_mag/(4*np.pi))**(1/3))*np.cos(t)
+                ellipse_ymag=((3*volume_mag/(4*np.pi))**(1/3))*np.sin(t)
+
+                ##Fluido magnético
+                x_mag= posx_mag+ellipse_xmag
+                y_mag= posy_mag+ellipse_ymag
+                
+                # Plotando a gota de fluido magnético
+                ax.fill(x_mag, y_mag, color='black', label=f"Magentic fluid {i} at ({posx_mag}, {posy_mag})")
         ## Coloquei aqui porque só o try dá erro, complemento do try
         except KeyError as item:
             print(f"Erro: Não achei o item {item} no dicionário de tumores.")
-        
 
- 
         ##Define os limites de acordo com os dados entrados para o blockMeshDict
         ax.set_xlim(0, self.xmax1)
         ax.set_ylim(0, self.ymax1)

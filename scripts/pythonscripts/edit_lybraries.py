@@ -25,6 +25,8 @@ def changeFileDict_2(tumor_dict):
     ## Arquivos a serem alterados
     #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
     input_file = os.path.join(dir,"2d_circular_tumour/0/ID")
+    input_file2 = os.path.join(dir,"2d_circular_tumour/system/controlDict")
+
     
     ## Contar tumores
     i=0
@@ -32,12 +34,18 @@ def changeFileDict_2(tumor_dict):
     ## Abre arquivos
     with open(input_file, "r") as file:
         lines = file.readlines()
+    
+    with open(input_file2, "r") as file:
+        lines2 = file.readlines()
+
 
         
     # listas agregam alterações (Altera o ID) 
     tumor_data_lines = []
     tumor_data_lines_2 = []
-
+    control_data_lines = []
+    datax = []
+    datay = []
     
     ## Itera dentro de tumor_data da outra função para recuperar os dados gravados no json
     for tumor_data in tumor_dict.values():
@@ -51,7 +59,12 @@ def changeFileDict_2(tumor_dict):
                 scalar_name = key
                 scalar_value = value["value"]
                 tumor_data_lines.append(f"        scalar {scalar_name} = {scalar_value};\n")
+                if scalar_name == f"posx_{i}":
+                    datax.append(scalar_value)
+                if scalar_name == f"posy_{i}":
+                    datay.append(scalar_value)
 
+    
         ## Agrega as demais linhas necessárias que não são diretamente entradas
         
         ## ID
@@ -68,18 +81,69 @@ def changeFileDict_2(tumor_dict):
         tumor_data_lines_2.append("                }\n")
         tumor_data_lines_2.append("\n")
     
+    for i in range(len(datax)):
+        xpos=datax[i-1]
+        ypos=datay[i-1]
+        control_data_lines.append(f"			({xpos} {ypos} 0.01)\n")
     # Onde escrever nos arquivos
     ##ID
     insertion_line = 48
-    insertion_line_2=insertion_line+(i*10+8)
+    insertion_line_c = 68
+    insertion_line_2=insertion_line+(i*10+18)
+    #informacoes iniciais
     lines[insertion_line:insertion_line] = tumor_data_lines
+    #equacao da elipse
     lines[insertion_line_2:insertion_line_2] = tumor_data_lines_2
+    #controldict
+    lines2[insertion_line_c:insertion_line_c] = control_data_lines
     
     ## Escreve nos arquivos
     
     with open(input_file, "w") as file:
         file.writelines(lines)
+    with open(input_file2, "w") as file:
+        file.writelines(lines2)
+
+def changeFileDict_6(tumor_dict):
+    dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+    ## Arquivos a serem alterados
+    #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
+    input_file = os.path.join(dir,"2d_circular_tumour/system/controlDict")
+    
+    ## Contar tumores
+    i=0
+    
+    ## Abre arquivos
+    with open(input_file, "r") as file:
+        lines = file.readlines()
+        
+    # listas agregam alterações (Altera o ID) 
+    tumor_data_lines = []
  
+    ## Itera dentro de tumor_data da outra função para recuperar os dados gravados no json
+    for tumor_data in tumor_dict.values():
+        #print(tumor_data)
+        i=i+1
+        ##Aqui modifica os dados que foram entrados diretamento com o usuário
+        for param in tumor_data[input_file]:
+            for key, value in param.items():
+                scalar_name = key
+                scalar_value = value["value"]
+                if scalar_name == f"posx_{i}" or scalar_name == f"posy_{i}":
+                    scalar_name = xpos
+                if scalar_name == f"posy_{i}":
+                    scalar_name = ypos
+                tumor_data_lines.append(f"			({xpos} {ypos}  1)\n")
+
+    # Onde escrever nos arquivos
+    ##ID
+    insertion_line = 68
+    lines[insertion_line:insertion_line] = tumor_data_lines
+    
+    ## Escreve nos arquivos
+    
+    with open(input_file, "w") as file:
+        file.writelines(lines)
 
 ################
 def changeFileDict_4(fluid_dict):
@@ -118,7 +182,7 @@ def changeFileDict_4(fluid_dict):
         
         ## corr
         fluid_data_lines.append("\n")
-        fluid_data_lines_2.append(f"                if ( pow(y-posy_{i},2) <= pow(pow((3*volume_{i})/(4*pi),1/3),2) - pow(x-posx_{i},2) )\n")
+        fluid_data_lines_2.append(f"                if ( pow(y-posy_{i},2) <= pow(((3*volume_{i})/(4*pi)),(2.0/3.0)) - pow(x-posx_{i},2) )\n")
         fluid_data_lines_2.append("                {\n")
         fluid_data_lines_2.append("                        corr[i] = 1.;\n")
         fluid_data_lines_2.append("                }\n")
@@ -161,7 +225,6 @@ def generate_dictionary_5(data,dir=None):
         os.path.join(dir,"2d_circular_tumour/constant/mhtQuantities"):
          [
             {"Magnetic_intensity":{"exp":"{Magnetic_intensity}","value":data["Magnetic_intensity"]}},
-            #{"endTime":{"exp":"\s+[0-9]+","value":tf}}
             {"Magnetic_frequency":{"exp":"{Magnetic_frequency}","value":data["Magnetic_frequency"]}},
             {"complex_susceptibility":{"exp":"{complex_susceptibility}","value":data["complex_susceptibility"]}},
             {"volume_fraction":{"exp":"{volume_fraction}","value":data["volume_fraction"]}}
@@ -190,6 +253,24 @@ def generate_dictionary_2(data,dir=None):
 
 # Estabelece a relação do que modificar com o valor a ser modificado para o ID
 def generate_dictionary_3(data,indexx,dir=None):
+    #print(index)
+    if dir is None:
+        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+    tumor_dict = {}
+    fluid_dict = {}
+    for i in range(1, indexx+1):  # Certifique-se de iterar até indexx inclusive
+        tumor_dict[f"dict{i}"] = {
+            os.path.join(dir, "2d_circular_tumour/0/ID"): [
+                {f"radius_{i}": {"exp": "{radius}", "value": data["tumors"][i-1][f"radius_{i}"]}},
+                {f"eccen_{i}": {"exp": "{eccen}", "value": data["tumors"][i-1][f"eccen_{i}"]}},
+                {f"posx_{i}": {"exp": "{posx}", "value": data["tumors"][i-1][f"posx_{i}"]}},
+                {f"posy_{i}": {"exp": "{posy}", "value": data["tumors"][i-1][f"posy_{i}"]}},
+                {f"inclination_{i}": {"exp": "{inclination}", "value": data["tumors"][i-1][f"inclination_{i}"]}},
+            ]
+        }
+
+    return tumor_dict
+def generate_dictionary_6(data,indexx,dir=None):
     #print(index)
     if dir is None:
         dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
