@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     mhtFoam_new;
+application     mhtFoam;
 
 startFrom       startTime;
 
