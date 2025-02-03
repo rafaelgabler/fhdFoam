@@ -1,20 +1,7 @@
-import os
-import numpy as np
-import matplotlib
-matplotlib.use('TkAgg') 
-import matplotlib.pyplot as plt
-import customtkinter as cttk
-from mpl_toolkits.mplot3d import Axes3D
 
 class main_pos:
-    import os
-    import numpy as np
-    import matplotlib
-    matplotlib.use('TkAgg') 
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
     def __init__(self):
-        print("Inicializando a classe...")
+        print("Criando gráficos...")
     def visual_pos(self):
         import os
         import numpy as np
@@ -63,8 +50,8 @@ class main_pos:
         for i in range(temperatures.shape[1]):
             plt.plot(time, temperatures[:, i], label=f'Tumor {i+1}')
         plt.title('Temperature in the center of the tumors')
-        plt.xlabel('Time')
-        plt.ylabel('Temperature')
+        plt.xlabel('Time (s)')
+        plt.ylabel('Temperature (K)')
         plt.legend()
         plt.grid(True)
         plt.show()
@@ -74,8 +61,8 @@ class main_pos:
         for i in range(perfusion.shape[1]):
             plt.plot(time, perfusion[:, i], label=f'Tumor {i+1}')
         plt.title('Blood perfusion in the center of the tumors')
-        plt.xlabel('Time')
-        plt.ylabel('Perfusion')
+        plt.xlabel('Time (s)')
+        plt.ylabel('Perfusion (1/s)')
         plt.legend()
         plt.grid(True)
         plt.show()
@@ -140,12 +127,13 @@ class main_pos:
         contour = ax_2d.contourf(X, Y, temperatures, cmap='plasma', shading='auto')
 
         # Adicionar barra de cores
-        fig_2d.colorbar(contour, ax=ax_2d)
-
+        fig_2d.colorbar(contour, ax=ax_2d,label="T(K)")
+        #cbar = fig_2d.colorbar(contour, ax=ax_2d)
+        #cbar.set_label("T (K)")
         # Adicionar título e rótulos
-        ax_2d.set_title('Distribuição de Temperatura na Malha 2D')
-        ax_2d.set_xlabel('Coordenada X')
-        ax_2d.set_ylabel('Coordenada Y')
+        ax_2d.set_title(f'Temperature distribution at the instant {endtime} s')
+        ax_2d.set_xlabel('X size (m)')
+        ax_2d.set_ylabel('Y size (m)')
 
         # Mostrar o gráfico 2D
         plt.show()
