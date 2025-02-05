@@ -95,7 +95,7 @@ def changeFileDict_2(tumor_dict):
     #equacao da elipse
     lines[insertion_line_2:insertion_line_2] = tumor_data_lines_2
     #controldict
-    lines2[insertion_line_c:insertion_line_c] = control_data_lines
+    #lines2[insertion_line_c:insertion_line_c] = control_data_lines
     
     ## Escreve nos arquivos
     
@@ -190,7 +190,7 @@ def changeFileDict_4(fluid_dict):
     # Onde escrever nos arquivos
     ##ID
     insertion_line = 48
-    insertion_line_2=insertion_line+(i*8+4)
+    insertion_line_2=insertion_line+(i*8)
     lines[insertion_line:insertion_line] = fluid_data_lines
     lines[insertion_line_2:insertion_line_2] = fluid_data_lines_2
     

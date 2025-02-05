@@ -41,9 +41,7 @@ class Main_wind:
         Função responsável pela construção da parte relativa ao título na interface
         """
         # Construção do container para título da janela
-        
-        #self.primeiroContainer = cttk.CTkFrame(root_1)
-        #self.primeiroContainer.pack(pady=10, padx=20)
+
         self.primeiroContainer = cttk.CTkFrame(self.root_1, corner_radius=15, fg_color="#2B2B2B")
         self.primeiroContainer.pack(pady=10, padx=25, fill="x")
         
@@ -54,12 +52,7 @@ class Main_wind:
 v 2.0"""
 
         # Atribuição do título dentro da janela (1a informação exibida)
-        
-        #self.titulo = cttk.CTkLabel(self.primeiroContainer, 
-        #                   text=texto1,
-        #                   justify="center",font=("Ubuntu",16))
-        #self.titulo.pack(pady=5, padx=5)
-#
+
         self.titulo = cttk.CTkLabel(
 
         self.primeiroContainer,
@@ -220,7 +213,6 @@ v 2.0"""
                          placeholder_text="600")
         self.endtime.pack(side="right")
 
-        
         ##Timestep
 
         self.controlcontainer2=cttk.CTkFrame(self.segundoContainer_main)
@@ -306,8 +298,7 @@ v 2.0"""
 
         self.tumor_windows = []
         self.fluid_windows = []
-        ## Abre janel
-        
+
         ## Containers principais
         self.middleContainer_sub = cttk.CTkFrame(self.middleContainer)
         self.middleContainer_sub.pack(side=LEFT,pady=8, padx=10)
@@ -372,7 +363,7 @@ v 2.0"""
             #nonlocal tumor_count
             tumor_count = int(tumor_count_num.get())
             self.open_tumor_data_screens(tumor_count)
-            self.tumor_count.destroy()
+            #self.tumor_count.destroy()
             return tumor_count
     ## Aqui conta a quantidade de pontos de injeção e abre a quantidade de janelas correspondente a entrada
     def submit_fluid(self,fluid_count_num):
@@ -398,12 +389,28 @@ v 2.0"""
         with open(self.outJson3, "w") as arquivo:
             json.dump(self.data, arquivo, indent=4)
         
-        ## Fecha a tela
-        #self.control.destroy()
+        self.confirmation_timefield = cttk.CTkToplevel(root_1)
+        
+        self.confContainer_timefield = cttk.CTkFrame(self.confirmation_timefield)
+        self.confContainer_timefield.pack(pady=10, padx=20)
+        
+        ## Título do contêiner
+        self.confirmation_timefield.title("Confirmation")
+        self.confirmation_timefieldLabel = cttk.CTkLabel(self.confContainer_timefield, 
+                              text="Time properties successfully saved")
+        self.confirmation_timefieldLabel.pack(side="left")
+
+        ## Botão de confirmação
+        self.confirmationfield_timebutton = cttk.CTkButton(self.confirmation_timefield, text="Ok",
+                           width=150,  # Ajustado para largura em pixels
+                           height=40,command=self.window_time_destroymesh)
+        self.confirmationfield_timebutton.pack(side=BOTTOM,padx=5)
 
     #Função para fechar tela após o ok ser pressionado (tumores)
     def window_destroymesh(self):
         self.confirmationmesh.destroy()
+    def window_time_destroymesh(self):
+        self.confirmation_timefield.destroy()    
     #Função para fechar tela após o ok ser pressionado (fluido magnético)
     def window_destroymeshfield(self):
         self.confirmationfield.destroy()
@@ -898,7 +905,7 @@ v 2.0"""
                 y_mag= posy_mag+ellipse_ymag
                 
                 # Plotando a gota de fluido magnético
-                ax.fill(x_mag, y_mag, color='black', label=f"Magentic fluid {i} at ({posx_mag}, {posy_mag})")
+                ax.fill(x_mag, y_mag, color='black', label=f"Magnetic fluid {i} at ({posx_mag}, {posy_mag})")
         ## Coloquei aqui porque só o try dá erro, complemento do try
         except KeyError as item:
             print(f"Erro: Não achei o item {item} no dicionário de tumores.")
@@ -917,9 +924,9 @@ v 2.0"""
         """
         Função utilizada para Iniciar simulação
         """
-        allpre_dir = "../../../tutorials/mhtFoam/2d_circular_tumour"
+        allpre_dir = "../../tutorials/mhtFoam/2d_circular_tumour"
         import os
-        os.chdir(allpre_dir)
+        #os.chdir(allpre_dir)
         os.system("./Allrun &")
         
 # Inicializa a interface gráfica
