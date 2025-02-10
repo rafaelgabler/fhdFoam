@@ -21,7 +21,7 @@ def changeFileDict(dict1):
 
 # Modifica o ID e o corr
 def changeFileDict_2(tumor_dict):
-    dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+    dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     ## Arquivos a serem alterados
     #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
     input_file = os.path.join(dir,"2d_circular_tumour/0/ID")
@@ -105,7 +105,7 @@ def changeFileDict_2(tumor_dict):
         file.writelines(lines2)
 
 def changeFileDict_6(tumor_dict):
-    dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+    dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     ## Arquivos a serem alterados
     #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/ID"
     input_file = os.path.join(dir,"2d_circular_tumour/system/controlDict")
@@ -147,7 +147,7 @@ def changeFileDict_6(tumor_dict):
 
 ################
 def changeFileDict_4(fluid_dict):
-    dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+    dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     ## Arquivos a serem alterados
     #input_file = "../../tutorials/mhtFoam/2d_circular_tumour/0/corr"
     input_file = os.path.join(dir,"2d_circular_tumour/0/corr")
@@ -190,7 +190,7 @@ def changeFileDict_4(fluid_dict):
     # Onde escrever nos arquivos
     ##ID
     insertion_line = 48
-    insertion_line_2=insertion_line+(i*8)
+    insertion_line_2=insertion_line+(i*8+6)
     lines[insertion_line:insertion_line] = fluid_data_lines
     lines[insertion_line_2:insertion_line_2] = fluid_data_lines_2
     
@@ -205,7 +205,7 @@ def changeFileDict_4(fluid_dict):
 def generate_dictionary_1(data,dir=None): 
     #print(data["endtime"])
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     dict1 = {
         os.path.join(dir,"2d_circular_tumour/system/controlDict"):
          [
@@ -220,7 +220,7 @@ def generate_dictionary_1(data,dir=None):
 def generate_dictionary_5(data,dir=None): 
     #print(data["endtime"])
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     dict1 = {
         os.path.join(dir,"2d_circular_tumour/constant/mhtQuantities"):
          [
@@ -237,7 +237,7 @@ def generate_dictionary_5(data,dir=None):
 #def generate_dictionary_2(data,dir="../../tutorials/mhtFoam/2d_circular_tumour"):
 def generate_dictionary_2(data,dir=None):
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     dict1 = {
         os.path.join(dir, "2d_circular_tumour/system/blockMeshDict"):
          [
@@ -255,7 +255,7 @@ def generate_dictionary_2(data,dir=None):
 def generate_dictionary_3(data,indexx,dir=None):
     #print(index)
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     tumor_dict = {}
     fluid_dict = {}
     for i in range(1, indexx+1):  # Certifique-se de iterar até indexx inclusive
@@ -273,7 +273,7 @@ def generate_dictionary_3(data,indexx,dir=None):
 def generate_dictionary_6(data,indexx,dir=None):
     #print(index)
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     tumor_dict = {}
     fluid_dict = {}
     for i in range(1, indexx+1):  # Certifique-se de iterar até indexx inclusive
@@ -291,7 +291,7 @@ def generate_dictionary_6(data,indexx,dir=None):
 def generate_dictionary_4(data,indexx_f,dir=None):
     #print(index)
     if dir is None:
-        dir = os.path.dirname(os.path.abspath("../../mhtFoam/2d_circular_tumour"))
+        dir = os.path.dirname(os.path.abspath("../../tutorials/mhtFoam/2d_circular_tumour"))
     fluid_dict = {}
     for i in range(1, indexx_f+1):  # Certifique-se de iterar até indexx inclusive
         fluid_dict[f"dict{i}"] = {

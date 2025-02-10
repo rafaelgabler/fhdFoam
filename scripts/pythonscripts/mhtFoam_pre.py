@@ -811,8 +811,8 @@ v 2.0"""
 
         indexx=self.current_index+1
         indexx_f=self.current_index_f+1
-        base_dir = "../../scripts/pythonscripts"
-
+        base_dir = "../../../scripts/pythonscripts"
+        os.chdir(base_dir)
         # Construir os caminhos completos para cada arquivo JSON
         json_file_path1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_blockMeshDict.json")
         json_file_path3 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_controlDict.json")
@@ -926,7 +926,7 @@ v 2.0"""
         """
         allpre_dir = "../../tutorials/mhtFoam/2d_circular_tumour"
         import os
-        #os.chdir(allpre_dir)
+        os.chdir(allpre_dir)
         os.system("./Allrun &")
         
 # Inicializa a interface gráfica
