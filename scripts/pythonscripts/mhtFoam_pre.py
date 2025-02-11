@@ -141,17 +141,7 @@ v 2.0"""
                          placeholder_text="0.09")
         self.ymax.pack(side="right")
         
-        # Construção do container para a entrada de zmax
-        self.quarto2Container = cttk.CTkFrame(self.segundoContainer)
-        self.quarto2Container.pack(pady=8, padx=20,fill="both", expand=True)
 
-        self.zmaxLabel = cttk.CTkLabel(self.quarto2Container, 
-                              text="Size of the domain in z direction (m): ")
-        self.zmaxLabel.pack(side="left")
-        self.zmax = cttk.CTkEntry(self.quarto2Container, 
-                         width=300, 
-                         placeholder_text="0.01")
-        self.zmax.pack(side="right")
         
         # Construção do container para a entrada de xnode
         self.quinto2Container = cttk.CTkFrame(self.segundoContainer)
@@ -177,17 +167,6 @@ v 2.0"""
                          placeholder_text="500")
         self.ynode.pack(side="right")
         
-        # Construção do container para a entrada de znode
-        self.setimo2Container = cttk.CTkFrame(self.segundoContainer)
-        self.setimo2Container.pack(pady=8, padx=20,fill="both", expand=True)
-
-        self.znodeLabel = cttk.CTkLabel(self.setimo2Container, 
-                              text="Amount of nodes in the z direction: ")
-        self.znodeLabel.pack(side="left")
-        self.znode = cttk.CTkEntry(self.setimo2Container, 
-                         width=300, 
-                         placeholder_text="1")
-        self.znode.pack(side="right")
         
         #botão de gerar jason
         self.autenticar = cttk.CTkButton(self.segundoContainer, text="Ok",
@@ -463,10 +442,8 @@ v 2.0"""
         inputDict_blockMeshDict = {}
         inputDict_blockMeshDict["xmax"] = self.xmax.get()
         inputDict_blockMeshDict["ymax"] = self.ymax.get()
-        inputDict_blockMeshDict["zmax"] = self.zmax.get()
         inputDict_blockMeshDict["xnode"] = self.xnode.get()
         inputDict_blockMeshDict["ynode"] = self.ynode.get()
-        inputDict_blockMeshDict["znode"] = self.znode.get()
         
         # Aqui vai ser usado para plotar a imagem de pré-view depois
         self.xmax1=float(self.xmax.get())
@@ -553,11 +530,11 @@ v 2.0"""
         self.primeiro5Container_f.pack(pady=10, padx=20)
 
         self.volumeLabel = cttk.CTkLabel(self.primeiro5Container_f, 
-                              text="Volume (m³): ")
+                              text="Volume (ml): ")
         self.volumeLabel.pack(side="left")
         self.volume = cttk.CTkEntry(self.primeiro5Container_f, 
                          width=300, 
-                         placeholder_text="9.902e-08")
+                         placeholder_text="99.02e-03")
         self.volume.pack(side="left")
         self.fluid_data_entries[index]["volume"] = self.volume
         
@@ -587,7 +564,6 @@ v 2.0"""
                          placeholder_text="0.045")
         self.posy_f.pack(side="left")
         self.fluid_data_entries[index]["posy_f"] = self.posy_f
-        
         
         ## Botão de ok
         self.autenticar_magfluid = cttk.CTkButton(self.fluid_window, text="Ok",
@@ -820,7 +796,6 @@ v 2.0"""
         json_file_path4 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_magflu.json")
         json_file_path5 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inputDict_mhtQuantities.json")
         
-
         ## Aqui chama o outro arquivo substitute_values_2 e altera os arquivos de acordo com as funções de lá
 
         with open(json_file_path1,'r') as f:
@@ -894,15 +869,15 @@ v 2.0"""
                 posx_mag = float(magdrop[f"posx_{i}"])
                 posy_mag = float(magdrop[f"posy_{i}"])
                 volume_mag = float(magdrop[f"volume_{i}"])
-
+                volume_magml = volume_mag*(10**(-6))
                 # Gerando a forma
                 t = np.linspace(0, 2 * np.pi, 100)
-                ellipse_xmag=((3*volume_mag/(4*np.pi))**(1/3))*np.cos(t)
-                ellipse_ymag=((3*volume_mag/(4*np.pi))**(1/3))*np.sin(t)
+                ellipse_xmag=((3*volume_magml/(4*np.pi))**(1/3))*np.cos(t)
+                ellipse_ymag=((3*volume_magml/(4*np.pi))**(1/3))*np.sin(t)
 
                 ##Fluido magnético
-                x_mag= posx_mag+ellipse_xmag
-                y_mag= posy_mag+ellipse_ymag
+                x_mag = posx_mag+ellipse_xmag
+                y_mag = posy_mag+ellipse_ymag
                 
                 # Plotando a gota de fluido magnético
                 ax.fill(x_mag, y_mag, color='black', label=f"Magnetic fluid {i} at ({posx_mag}, {posy_mag})")
@@ -918,8 +893,7 @@ v 2.0"""
         canvas = FigureCanvasTkAgg(fig, visuwind)
         canvas.draw()
         canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-            
-            
+                    
     def simulation(self):
         """
         Função utilizada para Iniciar simulação

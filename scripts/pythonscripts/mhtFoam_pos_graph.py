@@ -85,10 +85,8 @@ class main_pos:
         # Extrair as informações de domínio
         xmax = float(domain_info["xmax"])
         ymax = float(domain_info["ymax"])
-        zmax = float(domain_info["zmax"])
         xnode = int(domain_info["xnode"])
         ynode = int(domain_info["ynode"])
-        znode = int(domain_info["znode"])
 
         endtime = int(domain_info2["endtime"])
 

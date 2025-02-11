@@ -23,15 +23,15 @@ vertices
     ({xmax} 0 0)
     ({xmax} {ymax} 0)
     (0 {ymax} 0)
-    (0 0 {zmax})
-    ({xmax} 0 {zmax})
-    ({xmax} {ymax} {zmax})
-    (0 {ymax} {zmax})
+    (0 0 0.01)
+    ({xmax} 0 0.01)
+    ({xmax} {ymax} 0.01)
+    (0 {ymax} 0.01)
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ({xnode} {ynode} {znode}) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) ({xnode} {ynode} 1) simpleGrading (1 1 1)
 );
 
 edges

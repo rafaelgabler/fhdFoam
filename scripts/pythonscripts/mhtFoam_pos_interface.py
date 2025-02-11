@@ -154,11 +154,12 @@ class Main_wind_pos:
                     posxm = float(fluid[f"posx_{fluid_count}"])
                     posym = float(fluid[f"posy_{fluid_count}"])
                     volume = float(fluid[f"volume_{fluid_count}"])
+                    volume_mag = volume*(10**(-6))
                 except KeyError:
                     print(f"Erro: Chave ausente no tumor {fluid_count}")
                     continue  # Pula para o próximo tumor
                 # Calcular o raio do fluido magnético a partir do volume
-                radius = ((3 * volume) / (4 * np.pi)) ** (1 / 3)
+                radius = ((3 * volume_mag) / (4 * np.pi)) ** (1 / 3)
 
                 # Criar um círculo para o fluido magnético
                 fluid_circle = Circle(

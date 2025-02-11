@@ -182,7 +182,7 @@ def changeFileDict_4(fluid_dict):
         
         ## corr
         fluid_data_lines.append("\n")
-        fluid_data_lines_2.append(f"                if ( pow(y-posy_{i},2) <= pow(((3*volume_{i})/(4*pi)),(2.0/3.0)) - pow(x-posx_{i},2) )\n")
+        fluid_data_lines_2.append(f"                if ( pow(y-posy_{i},2) <= pow(((3*volume_{i}*(pow(10,-6)))/(4*pi)),(2.0/3.0)) - pow(x-posx_{i},2) )\n")
         fluid_data_lines_2.append("                {\n")
         fluid_data_lines_2.append("                        corr[i] = 1.;\n")
         fluid_data_lines_2.append("                }\n")
@@ -243,10 +243,8 @@ def generate_dictionary_2(data,dir=None):
          [
              {"xmax":{"exp":"{xmax}","value":data["xmax"]}},
              {"ymax":{"exp":"{ymax}","value":data["ymax"]}},
-             {"zmax":{"exp":"{zmax}","value":data["zmax"]}},
              {"xnode":{"exp":"{xnode}","value":data["xnode"]}},
-             {"ynode":{"exp":"{ynode}","value":data["ynode"]}},
-             {"znode":{"exp":"{znode}","value":data["znode"]}}
+             {"ynode":{"exp":"{ynode}","value":data["ynode"]}}
         ]
     }
     return dict1
